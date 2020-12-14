@@ -1,9 +1,10 @@
 // Package dependencies
 const _ = require('lodash');
+const auth = require('../middleware/auth');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.js');
+const User = require('../models/user');
 
 // Router configuration
 const router = express.Router();
@@ -74,8 +75,15 @@ router.post('/login', async (req, res) => {
   }
 
   // Return token and user information if everything is successful
-  const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN);
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   return res.status(200).json({ token, user: _.pick(user, ['_id', 'email']) });
+});
+
+router.delete('/delete', auth, async (req, res) => {
+  const deletedUser = await User.findByIdAndDelete(req.user).catch((err) =>
+    res.status(500).json({ error: err.message })
+  );
+  return res.status(200).json(_.pick(deletedUser, ['_id', 'email']));
 });
 
 // Export
