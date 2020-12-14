@@ -35,7 +35,7 @@ const corsOptions = {
 };
 
 // Middleware
-// app.use(cors(corsOptions)); // CORS
+app.use(cors(corsOptions)); // CORS
 app.use(express.json()); // body parser
 app.use(
   session({
