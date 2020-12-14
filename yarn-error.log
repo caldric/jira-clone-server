@@ -1,0 +1,42 @@
+Arguments: 
+  /usr/local/Cellar/node/14.12.0/bin/node /Users/claudealdric/projects/.yarn/releases/yarn-1.22.5.js add cors express mongoose exrpress-session
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  14.12.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/exrpress-session: Not found
+      at Request.params.callback [as _callback] (/Users/claudealdric/projects/.yarn/releases/yarn-1.22.5.js:78518:18)
+      at Request.self.callback (/Users/claudealdric/projects/.yarn/releases/yarn-1.22.5.js:135160:22)
+      at Request.emit (events.js:314:20)
+      at Request.<anonymous> (/Users/claudealdric/projects/.yarn/releases/yarn-1.22.5.js:136132:10)
+      at Request.emit (events.js:314:20)
+      at IncomingMessage.<anonymous> (/Users/claudealdric/projects/.yarn/releases/yarn-1.22.5.js:136054:12)
+      at Object.onceWrapper (events.js:420:28)
+      at IncomingMessage.emit (events.js:326:22)
+      at endReadableNT (_stream_readable.js:1252:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "main": "server.js",
+    "author": "Claude Aldric",
+    "license": "GNU GPL v3.0"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -3,5 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "author": "Claude Aldric",
-  "license": "GNU GPL v3.0"
+  "license": "GNU GPL v3.0",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.7"
+  }
 }
