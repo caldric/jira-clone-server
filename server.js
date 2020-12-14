@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+require('dotenv').config();
 
 // Configuration
 const app = express();
@@ -38,7 +39,7 @@ app.use(cors(corsOptions)); // CORS
 app.use(express.json()); // body parser
 app.use(
   session({
-    secret: process.env.SECRET || 'secret',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
   })
