@@ -1,6 +1,8 @@
 // Package dependencies
+const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 
 // Router configuration
@@ -48,6 +50,32 @@ router.post('/register', async (req, res) => {
 
   // Return newly created user information if everything is successful
   return res.status(200).json(newUser);
+});
+
+router.post('/login', async (req, res) => {
+  // Destructure the body
+  const { email, password } = req.body;
+
+  // Validation: all fields must be present
+  if (!email || !password) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  // Validation: check if user credentials match the database
+  const user = await User.findOne({ email }).catch((err) =>
+    res.status(400).json({ error: err.message })
+  );
+  const validCredentials = user
+    ? bcrypt.compareSync(password, user.password)
+    : false;
+
+  if (!validCredentials) {
+    return res.status(400).json({ error: 'Invalid email or password' });
+  }
+
+  // Return token and user information if everything is successful
+  const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN);
+  return res.status(200).json({ token, user: _.pick(user, ['_id', 'email']) });
 });
 
 // Export
