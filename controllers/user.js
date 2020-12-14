@@ -86,5 +86,22 @@ router.delete('/delete', auth, async (req, res) => {
   return res.status(200).json(_.pick(deletedUser, ['_id', 'email']));
 });
 
+router.post('/tokenisvalid', async (req, res) => {
+  try {
+    const token = req.header('x-auth-token');
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+
+    const user = await User.findById(verified.id);
+    if (!user) return res.json(false);
+
+    return res.json(true);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Export
 module.exports = router;
