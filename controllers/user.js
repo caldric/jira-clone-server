@@ -4,10 +4,10 @@ const express = require('express');
 const User = require('../models/user.js');
 
 // Router configuration
-const userRouter = express.Router();
+const router = express.Router();
 
 // Routers
-userRouter.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   // Destructure the body
   const { email, password } = req.body;
 
@@ -51,4 +51,4 @@ userRouter.post('/register', async (req, res) => {
 });
 
 // Export
-module.exports = userRouter;
+module.exports = router;
