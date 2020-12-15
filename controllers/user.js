@@ -10,6 +10,13 @@ const User = require('../models/user');
 const router = express.Router();
 
 // Routers
+router.get('/', auth, async (req, res) => {
+  const user = await User.findById(req.user).catch((err) =>
+    res.status(500).json({ error: err.message })
+  );
+  return res.status(200).json(_.pick(user, ['_id', 'email']));
+});
+
 router.post('/register', async (req, res) => {
   // Destructure the body
   const { email, password } = req.body;
