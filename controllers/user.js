@@ -50,7 +50,7 @@ router.post('/register', async (req, res) => {
   }).catch((err) => res.status(400).json({ error: err.message }));
 
   // Return newly created user information if everything is successful
-  return res.status(200).json(newUser);
+  return res.status(200).json(_.pick(newUser, ['_id', 'email']));
 });
 
 router.post('/login', async (req, res) => {
