@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "author": "Claude Aldric",
-  "license": "GNU GPL v3.0",
+  "license": "GPL-3.0",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
