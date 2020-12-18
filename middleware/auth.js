@@ -14,7 +14,6 @@ const auth = (req, res, next) => {
 
     // Validation: verify provided token
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('Verified: ', verified);
     if (!verified) {
       return res
         .status(401)

@@ -46,9 +46,11 @@ app.use(
 );
 
 // Controllers
-const userController = require('./controllers/user.js');
+const userController = require('./controllers/user');
+const projectsController = require('./controllers/projects');
 
 app.use('/user', userController);
+app.use('/projects', projectsController);
 
 // Listener
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
