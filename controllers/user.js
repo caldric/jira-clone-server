@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Routers
 router.get('/', auth, async (req, res) => {
-  const user = await User.findById(req.user).catch((err) =>
+  const user = await User.findById(req.userID).catch((err) =>
     res.status(500).json({ error: err.message })
   );
   return res.status(200).json(_.pick(user, ['_id', 'email']));
@@ -87,7 +87,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.delete('/delete', auth, async (req, res) => {
-  const deletedUser = await User.findByIdAndDelete(req.user).catch((err) =>
+  const deletedUser = await User.findByIdAndDelete(req.userID).catch((err) =>
     res.status(500).json({ error: err.message })
   );
   return res.status(200).json(_.pick(deletedUser, ['_id', 'email']));

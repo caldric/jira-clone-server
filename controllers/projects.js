@@ -8,20 +8,24 @@ const router = express.Router();
 
 // Routes
 router.get('/', auth, async (req, res) => {
-  const { userID } = req.body;
-  const projects = await Project.find({ userID }).catch((err) =>
-    res.status(400).json({ error: err.message })
-  );
-  res.status(200).json(projects);
+  try {
+    const projects = await Project.find({ userID: req.userID });
+    return res.status(200).json(projects);
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 router.post('/', auth, async (req, res) => {
   try {
     // Destructure the body
-    const { userID, name, key } = req.body;
+    const { name, key } = req.body;
 
     // Validation: check if name already exists
-    const projWithSameName = await Project.findOne({ userID, name });
+    const projWithSameName = await Project.findOne({
+      userID: req.userID,
+      name,
+    });
 
     if (projWithSameName) {
       return res
@@ -30,7 +34,7 @@ router.post('/', auth, async (req, res) => {
     }
 
     // Validation: check if key already exists
-    const projWithSameKey = await Project.findOne({ userID, key });
+    const projWithSameKey = await Project.findOne({ userID: req.userID, key });
 
     if (projWithSameKey) {
       return res.status(400).json({
@@ -39,9 +43,9 @@ router.post('/', auth, async (req, res) => {
     }
 
     // If all validation passes, create and return new project as JSON
-    const newProject = await Project.create({ userID, name, key });
+    const newProject = await Project.create({ userID: req.userID, name, key });
     return res.status(200).json(newProject);
-  } catch (error) {
+  } catch (err) {
     return res.status(400).json({ error: err.message });
   }
 });
